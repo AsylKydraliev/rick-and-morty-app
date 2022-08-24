@@ -1,0 +1,25 @@
+<div
+  class="alert alert-error"
+  *ngIf="(charactersFetchError | async)"
+>
+  {{ charactersFetchError | async }}
+</div>
+
+<div class="loading">
+  <app-loader *ngIf="(charactersFetchLoading | async) else charactersArea"></app-loader>
+</div>
+
+<ng-template #charactersArea>
+  <h2 class="title">Characters</h2>
+  <hr>
+  <div class="characters_content">
+    <div class="hero-unit" *ngFor="let char of characters" routerLink="/character">
+      <img width="100%" [src]="char.image" [alt]="char.name">
+      <div class="info">
+        <h3>{{ char.name }}</h3>
+        <span>Gender: {{ char.gender }}</span>
+        <span>Species: {{ char.species }}</span>
+      </div>
+    </div>
+  </div>
+</ng-template>

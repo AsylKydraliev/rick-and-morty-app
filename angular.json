@@ -31,9 +31,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/tw-bootstrap/css/bootstrap.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/tw-bootstrap/js/bootstrap.js"
+            ]
           },
           "configurations": {
             "production": {
