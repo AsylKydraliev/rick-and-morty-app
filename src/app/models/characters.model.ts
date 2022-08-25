@@ -1,3 +1,5 @@
+import { InfoApiResponse } from './pageInfo.model';
+
 export class Character {
   constructor(
     public id: number,
@@ -22,16 +24,7 @@ export class Character {
   }
 }
 
-export class InfoApiResponse {
-  constructor(
-    public count: number,
-    public pages: number,
-    public next: string,
-    public prev: null | string,
-  ) {}
-}
-
-export class RickAndMortyApiResponse {
+export class CharacterResponse {
   constructor(
     public info: InfoApiResponse,
     public results: Character[],

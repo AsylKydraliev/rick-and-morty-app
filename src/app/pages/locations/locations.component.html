@@ -1,0 +1,24 @@
+<div class="alert alert-error" *ngIf="locationsFetchError | async">
+  {{ locationsFetchError | async }}
+</div>
+
+<app-loader *ngIf="(locationsFetchLoading | async) else charactersArea"></app-loader>
+
+<ng-template #charactersArea>
+  <h2 class="title">Locations</h2>
+  <hr>
+  <div class="locations_content">
+    <div class="hero-unit span8" *ngFor="let location of locations">
+      <div class="info">
+        <h2>
+          <a [routerLink]="['/', 'location', location.id]">
+            {{ location.name }}
+          </a>
+        </h2>
+        <hr>
+        <span><strong>Created</strong> {{ location.created }}</span>
+      </div>
+    </div>
+  </div>
+</ng-template>
+

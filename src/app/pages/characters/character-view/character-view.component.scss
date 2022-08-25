@@ -1,0 +1,11 @@
+.hero-unit {
+  display: flex;
+  padding: 0;
+  img {
+    border-radius: 10px;
+  }
+  .info {
+    margin-left: 1rem;
+    padding: 2rem;
+  }
+}

@@ -1,1 +1,11 @@
-<p>character-view works!</p>
+<div class="hero-unit">
+  <img width="300" [src]="char?.image" [alt]="char?.name">
+  <div class="info">
+    <h1>{{ char?.name }}</h1>
+    <hr>
+    <p>Species: {{ char?.species }}</p>
+    <p>Status: {{ char?.status }}</p>
+    <p>Gender: {{ char?.gender }}</p>
+    <p>Created: {{ char?.created }}</p>
+  </div>
+</div>

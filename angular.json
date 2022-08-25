@@ -32,7 +32,8 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/tw-bootstrap/css/bootstrap.css"
+              "src/tw-bootstrap/css/bootstrap.css",
+              "src/tw-bootstrap/css/bootstrap-responsive.css"
             ],
             "scripts": [
               "src/tw-bootstrap/js/bootstrap.js"
