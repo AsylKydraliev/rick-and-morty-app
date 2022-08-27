@@ -5,10 +5,17 @@
 <app-loader *ngIf="(locationsFetchLoading | async) else charactersArea"></app-loader>
 
 <ng-template #charactersArea>
-  <h2 class="title">Locations</h2>
+  <div class="location-head">
+    <h2>Locations</h2>
+    <app-search
+      (newItemEvent)="searchCharacters($event)"
+      (selectedItem)="searchCharacters($event)"
+      [locations]="locations"
+    ></app-search>
+  </div>
   <hr>
   <div class="locations_content">
-    <div class="hero-unit span8" *ngFor="let location of locations">
+    <div class="hero-unit" *ngFor="let location of locations">
       <div class="info">
         <h2>
           <a [routerLink]="['/', 'location', location.id]">
@@ -16,9 +23,12 @@
           </a>
         </h2>
         <hr>
-        <span><strong>Created</strong> {{ location.created }}</span>
+        <span><strong>Dimension</strong> {{ location.dimension }}</span>
       </div>
     </div>
+  </div>
+  <div class="pagination">
+    <app-pagination (newPageEvent)="onPagination($event)" [pages]="pageCount"></app-pagination>
   </div>
 </ng-template>
 

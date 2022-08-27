@@ -1,11 +1,36 @@
 .hero-unit {
   display: flex;
   padding: 0;
-  img {
-    border-radius: 10px;
-  }
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  border-radius: 10px;
+  overflow: hidden;
+
   .info {
     margin-left: 1rem;
     padding: 2rem;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .info {
+    h1 {
+      font-size: 27px;
+    }
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .hero-unit {
+    flex-direction: column;
+    padding: 16px;
+    .info {
+      padding: 1rem 0.5rem;
+    }
+    img {
+      width: 100%;
+    }
+    p {
+      font-size: 16px;
+    }
   }
 }

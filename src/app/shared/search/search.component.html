@@ -1,10 +1,20 @@
-<form class="form-search">
-  <input (input)="onSearch(value)"
-         type="text"
-         class="input-medium
-         search-query"
-         [(ngModel)]="value"
-         name="value"
-  >
-  <button type="submit" class="btn">Search</button>
-</form>
+<div class="autocomplete">
+  <ng-autocomplete
+    [data]="characters || locations"
+    [searchKeyword]="keyword"
+    placeholder="Search by name"
+    (selected)='selectEvent($event)'
+    (inputChanged)='onSearch($event)'
+    historyIdentifier="characters || locations"
+    [itemTemplate]="itemTemplate"
+    [notFoundTemplate]="notFoundTemplate">
+  </ng-autocomplete>
+
+  <ng-template #itemTemplate let-item>
+    <a>{{ item.name }}</a>
+  </ng-template>
+
+  <ng-template #notFoundTemplate let-notFound>
+    <div>{{ notFound }}</div>
+  </ng-template>
+</div>

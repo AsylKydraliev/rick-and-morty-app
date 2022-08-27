@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CharacterViewComponent implements OnInit {
   char: Character | null = null;
+  date!: string;
 
   constructor(private characterService: CharactersService, private route: ActivatedRoute) { }
 
@@ -17,6 +18,7 @@ export class CharacterViewComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.characterService.getCharacterById(params['id']).subscribe(char => {
         this.char = char;
+        this.date = new Date(char.created).toLocaleDateString();
       })
     })
   }

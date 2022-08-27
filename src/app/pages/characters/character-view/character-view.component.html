@@ -1,3 +1,9 @@
+<ul class="pager">
+  <li class="previous">
+    <a routerLink="/">&larr; Back</a>
+  </li>
+</ul>
+
 <div class="hero-unit">
   <img width="300" [src]="char?.image" [alt]="char?.name">
   <div class="info">
@@ -6,6 +12,6 @@
     <p>Species: {{ char?.species }}</p>
     <p>Status: {{ char?.status }}</p>
     <p>Gender: {{ char?.gender }}</p>
-    <p>Created: {{ char?.created }}</p>
+    <p>Created: {{ date }}</p>
   </div>
 </div>

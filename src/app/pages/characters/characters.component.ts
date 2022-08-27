@@ -15,9 +15,11 @@ export class CharactersComponent implements OnInit, OnDestroy {
   charactersState: Observable<CharacterResponse | null>;
   charactersFetchError: Observable<string | null>;
   charactersFetchLoading: Observable<boolean>;
-  characters!: Character[] | undefined;
-  searchResult!: Character[];
+  characters: Character[] | any = [];
   charactersSub!: Subscription;
+  pageCount: number | undefined = 0;
+  nextPage!: number;
+  prevPage!: number;
 
   constructor(private store: Store<AppState>, private charactersService: CharactersService) {
     this.charactersState = store.select(state => state.characters.characters);
@@ -33,12 +35,26 @@ export class CharactersComponent implements OnInit, OnDestroy {
   getCharactersData() {
     this.charactersSub = this.charactersState.subscribe(char => {
       this.characters = char?.results;
+      this.pageCount = char?.info.pages;
     });
   }
 
   searchCharacters(value: string) {
     this.charactersService.searchCharacters(value).subscribe(data => {
       this.characters = data.results;
+    });
+  }
+
+  onPagination(page: number) {
+    this.charactersService.onPagination(page).subscribe(data => {
+      this.characters = data.results;
+      this.nextPage = parseInt(data.info.next.slice(-1));
+
+      if(data.info.prev) {
+        this.prevPage = parseInt(data.info.prev.slice(-1));
+      }
+
+      return;
     });
   }
 

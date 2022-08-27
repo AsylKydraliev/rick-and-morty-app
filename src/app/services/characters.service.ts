@@ -35,4 +35,12 @@ export class CharactersService {
       })
     );
   }
+
+  onPagination(page: number) {
+    return this.http.get<CharacterResponse>(`${environment.charactersUrl}?page=${page}`).pipe(
+      map(response => {
+        return response;
+      })
+    );
+  }
 }

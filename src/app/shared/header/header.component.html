@@ -1,17 +1,24 @@
 <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <div class="content">
-        <a class="brand" routerLink="/">
-          Rick and Morty
-        </a>
-        <div class="nav-collapse">
-          <ul class="nav">
-            <li>
-              <a routerLink="/">Characters</a>
-            </li>
-            <li><a routerLink="locations">Locations</a></li>
-          </ul>
+      <div class="header">
+        <div class="header-inner">
+          <div class="head-nav">
+            <a class="brand" routerLink="/">
+              Rick and Morty
+            </a>
+            <div class="nav-list">
+              <ul class="nav">
+                <li>
+                  <a routerLink="/">Characters</a>
+                </li>
+                <li><a routerLink="locations">Locations</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div>
+          <app-switch-toggle></app-switch-toggle>
         </div>
       </div>
     </div>

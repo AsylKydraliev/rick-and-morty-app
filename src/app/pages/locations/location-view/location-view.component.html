@@ -1,9 +1,15 @@
+<ul class="pager">
+  <li class="previous">
+    <a routerLink="/">&larr; Back</a>
+  </li>
+</ul>
+
 <div class="hero-unit">
     <div class="info">
       <h1>{{ location?.name }}</h1>
       <hr>
       <p>Type: {{ location?.type }}</p>
       <p>Dimension: {{ location?.dimension}}</p>
-      <p>Created: {{ location?.created }}</p>
+      <p>Created: {{ date }}</p>
     </div>
 </div>

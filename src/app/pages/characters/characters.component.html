@@ -7,7 +7,11 @@
 <ng-template #charactersArea>
   <div class="char-head">
     <h2>Characters</h2>
-    <app-search (newItemEvent)="searchCharacters($event)"></app-search>
+    <app-search
+      (newItemEvent)="searchCharacters($event)"
+      (selectedItem)="searchCharacters($event)"
+      [characters]="characters"
+    ></app-search>
   </div>
   <hr>
   <div class="characters_content">
@@ -24,4 +28,13 @@
       </div>
     </div>
   </div>
+  <div class="pagination">
+    <app-pagination
+      (newPageEvent)="onPagination($event)"
+      [pages]="pageCount"
+      [nextPage]="nextPage"
+      [prevPage]="prevPage"
+    ></app-pagination>
+  </div>
 </ng-template>
+

@@ -4,6 +4,7 @@ import { Location, LocationsResponse } from '../../models/locations.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/types';
 import { fetchLocationsRequest } from '../../state/locations/locations.actions';
+import { LocationsService } from '../../services/locations.service';
 
 @Component({
   selector: 'app-locations',
@@ -16,8 +17,9 @@ export class LocationsComponent implements OnInit {
   locationsFetchLoading: Observable<boolean>;
   locations!: Location[] | undefined;
   locationsSub!: Subscription;
+  pageCount: number | undefined = 0;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private locationService: LocationsService) {
     this.locationsState = store.select(state => state.locations.locations);
     this.locationsFetchError = store.select(state => state.locations.fetchError);
     this.locationsFetchLoading = store.select(state => state.locations.fetchLoading);
@@ -28,6 +30,18 @@ export class LocationsComponent implements OnInit {
     this.locationsSub = this.locationsState.subscribe(location => {
       this.locations = location?.results;
     })
+  }
+
+  searchCharacters(value: string) {
+    this.locationService.searchCharacters(value).subscribe(data => {
+      this.locations = data.results;
+    });
+  }
+
+  onPagination(page: number) {
+    this.locationService.onPagination(page).subscribe(data => {
+      this.locations = data.results;
+    });
   }
 
   ngOnDestroy() {

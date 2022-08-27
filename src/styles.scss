@@ -1,5 +1,37 @@
+$light-theme-bg: #fff;
+$light-theme-color: #222;
+
+$dark-theme-bg: #494646;
+$dark-theme-color: #fff;
+
+*, *::after, *::before{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  color: $light-theme-color;
+  background-color: $light-theme-bg;
+  padding: 0 !important;
+}
+
 .content {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 15px;
+}
+
+.theme-dark {
+  background-color: $dark-theme-bg;
+  color: $dark-theme-color;
+  .hero-unit {
+    background-color: #555555;
+    color: #eeeeee;
+  }
 }

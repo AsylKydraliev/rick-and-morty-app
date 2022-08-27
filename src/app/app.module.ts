@@ -19,6 +19,10 @@ import { locationsReducer } from './state/locations/locations.reducer';
 import { LocationsEffects } from './state/locations/locations.effects';
 import { SearchComponent } from './shared/search/search.component';
 import { FormsModule } from '@angular/forms';
+import { PaginationComponent } from './shared/pagination/pagination.component';
+import { JwPaginationModule } from 'jw-angular-pagination';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { SwitchToggleComponent } from './shared/switch-toggle/switch-toggle.component';
 
 @NgModule({
   declarations: [
@@ -30,13 +34,17 @@ import { FormsModule } from '@angular/forms';
     NotFoundComponent,
     LocationsComponent,
     LocationViewComponent,
-    SearchComponent
+    SearchComponent,
+    PaginationComponent,
+    SwitchToggleComponent
   ],
     imports: [
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
+      JwPaginationModule,
+      AutocompleteLibModule,
       StoreModule.forRoot({characters: charactersReducer, locations: locationsReducer}, {}),
       EffectsModule.forRoot([CharactersEffects, LocationsEffects])
     ],

@@ -26,4 +26,20 @@ export class LocationsService {
       })
     )
   }
+
+  searchCharacters(query: string) {
+    return this.http.get<LocationsResponse>(`${environment.locationsUrl}/?name=${query}`).pipe(
+      map(response => {
+        return response;
+      })
+    );
+  }
+
+  onPagination(page: number) {
+    return this.http.get<LocationsResponse>(`${environment.locationsUrl}?page=${page}`).pipe(
+      map(response => {
+        return response;
+      })
+    );
+  }
 }

@@ -1,19 +1,23 @@
+.location-head {
+  display: flex;
+  justify-content: space-between;
+}
+
 .locations_content {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-bottom: 5rem;
   .hero-unit {
     margin: 0.3rem;
     padding: 1rem;
     text-align: left;
     transition: 0.3s;
+    width: 70%;
     .info {
       display: flex;
       flex-direction: column;
-      a {
-        color: #2c2c2c;
-      }
       hr {
         margin: 10px;
       }
@@ -32,5 +36,20 @@
 .alert-error {
   text-align: center;
   font-size: 16px;
+}
+
+@media screen and (max-width: 960px) {
+  .locations_content {
+    .hero-unit {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .location-head {
+    display: flex;
+    flex-direction: column;
+  }
 }
 

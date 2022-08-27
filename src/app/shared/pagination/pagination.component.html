@@ -1,0 +1,7 @@
+<div class="pagination">
+  <ul>
+    <li><a (click)="newPage(prevPage)">Prev</a></li>
+    <li><a *ngFor="let page of pageCount" (click)="newPage(page)">{{ page }}</a></li>
+    <li><a (click)="newPage(nextPage)">Next</a></li>
+  </ul>
+</div>

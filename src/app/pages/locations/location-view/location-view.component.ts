@@ -10,6 +10,7 @@ import { LocationsService } from '../../../services/locations.service';
 })
 export class LocationViewComponent implements OnInit {
   location: Location | null = null;
+  date!: string;
 
   constructor(private locationService: LocationsService, private route: ActivatedRoute) { }
 
@@ -17,6 +18,7 @@ export class LocationViewComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.locationService.getLocationById(params['id']).subscribe(location => {
         this.location = location;
+        this.date = new Date(location.created).toLocaleDateString();
       })
     })
   }
