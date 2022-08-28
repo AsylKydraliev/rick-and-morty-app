@@ -1,17 +1,26 @@
 <ul class="pager">
   <li class="previous">
-    <a routerLink="/">&larr; Back</a>
+    <a (click)="back()">&larr; Back</a>
   </li>
 </ul>
 
-<div class="hero-unit">
-  <img width="300" [src]="char?.image" [alt]="char?.name">
-  <div class="info">
-    <h1>{{ char?.name }}</h1>
-    <hr>
-    <p>Species: {{ char?.species }}</p>
-    <p>Status: {{ char?.status }}</p>
-    <p>Gender: {{ char?.gender }}</p>
-    <p>Created: {{ date }}</p>
+<app-loader *ngIf="(loading | async) else characterArea"></app-loader>
+
+<ng-template #characterArea>
+  <div class="hero-unit">
+    <img width="300" src="assets/images/no-image.png" *ngIf="!character else image" alt="NO IMAGE">
+    <ng-template #image>
+      <img width="300" [src]="character?.image" [alt]="character?.name">
+    </ng-template>
+    <div class="info">
+      <h1>{{ character?.name }}</h1>
+      <hr>
+      <p>Species: <b>{{ character?.species }}</b></p>
+      <p>Status: <b>{{ character?.status }}</b></p>
+      <p>Gender: <b>{{ character?.gender }}</b></p>
+      <p>Last known location: <b>{{ character?.location?.name }}</b></p>
+      <p>First seen in: <b>{{ character?.origin?.name }}</b></p>
+      <p>Created: <b>{{ date }}</b></p>
+    </div>
   </div>
-</div>
+</ng-template>

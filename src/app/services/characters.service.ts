@@ -43,4 +43,12 @@ export class CharactersService {
       })
     );
   }
+
+  onFilter(filterCriterion: string) {
+    return this.http.get<CharacterResponse>(`${environment.charactersUrl}/?${filterCriterion}`).pipe(
+      map(response => {
+        return response;
+      })
+    );
+  }
 }

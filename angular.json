@@ -36,7 +36,7 @@
               "src/tw-bootstrap/css/bootstrap-responsive.css"
             ],
             "scripts": [
-              "src/tw-bootstrap/js/bootstrap.js"
+              "src/tw-bootstrap/js/bootstrap.min.js"
             ]
           },
           "configurations": {

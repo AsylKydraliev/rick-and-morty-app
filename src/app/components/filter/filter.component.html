@@ -1,0 +1,24 @@
+<div class="filter">
+  <div class="dropdown">
+    <button class="btn dropBtn">{{ genderValue ? genderValue : 'Gender' }}</button>
+    <div class="dropdown-content">
+      <button (click)="filterByGender($event)" value="Female">Female</button>
+      <button (click)="filterByGender($event)" value="Male">Male</button>
+      <button (click)="filterByGender($event)" value="Genderless">Genderless</button>
+      <button (click)="filterByGender($event)" value="Unknown">Unknown</button>
+      <button (click)="filterByGender($event)" value="All">All</button>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    <button class="btn dropBtn">{{ statusValue ? statusValue : 'Status' }}</button>
+    <div class="dropdown-content">
+      <button (click)="filterByStatus($event)" value="Alive">Alive</button>
+      <button (click)="filterByStatus($event)" value="Dead">Dead</button>
+      <button (click)="filterByStatus($event)" value="Unknown">Unknown</button>
+      <button (click)="filterByStatus($event)" value="All">All</button>
+    </div>
+  </div>
+</div>
+
+

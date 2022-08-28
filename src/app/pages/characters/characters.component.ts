@@ -3,11 +3,11 @@ import { Character, CharacterResponse } from '../../models/characters.model';
 import { AppState } from '../../state/types';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { fetchCharactersRequest } from '../../state/characters/characters.actions';
 import { CharactersService } from '../../services/characters.service';
+import { fetchCharactersRequest } from '../../state/characters/characters.actions';
 
 @Component({
-  selector: 'app-characters',
+  selector: 'app-character',
   templateUrl: './characters.component.html',
   styleUrls: ['./characters.component.scss']
 })
@@ -18,7 +18,7 @@ export class CharactersComponent implements OnInit, OnDestroy {
   characters: Character[] | any = [];
   charactersSub!: Subscription;
   pageCount: number | undefined = 0;
-  nextPage!: number;
+  nextPage!: any;
   prevPage!: number;
 
   constructor(private store: Store<AppState>, private charactersService: CharactersService) {
@@ -36,6 +36,7 @@ export class CharactersComponent implements OnInit, OnDestroy {
     this.charactersSub = this.charactersState.subscribe(char => {
       this.characters = char?.results;
       this.pageCount = char?.info.pages;
+      this.nextPage = char?.info.next;
     });
   }
 
@@ -56,6 +57,50 @@ export class CharactersComponent implements OnInit, OnDestroy {
 
       return;
     });
+  }
+
+  onSort(event: string) {
+    console.log(event);
+    const charactersCopy = [...this.characters];
+    this.characters = charactersCopy.sort((a: Character, b: Character) => {
+      if(event === 'Name (A-Z)') {
+        if(a.name < b.name) return -1;
+        if(a.name > b.name) return 1;
+      }
+      if(event === 'Name (Z-A)') {
+        if(a.name > b.name) return -1;
+        if(a.name < b.name) return 1;
+      }
+      if(event === 'Default') {
+        return a.id - b.id;
+      }
+
+      return 0;
+    });
+  }
+
+  onFilter(value: string) {
+    let criterion = '';
+
+    switch (value) {
+      case 'Alive':
+      case 'Dead':
+      case 'Unknown':
+        criterion = `status=${value}`;
+        break;
+      case 'Female':
+      case 'Male':
+      case 'Genderless':
+      case 'Unknown':
+        criterion = `gender=${value}`;
+        break;
+      default:
+        this.store.dispatch(fetchCharactersRequest());
+    }
+
+    this.charactersService.onFilter(criterion.toLowerCase()).subscribe(data => {
+      this.characters = data.results;
+    })
   }
 
   ngOnDestroy() {

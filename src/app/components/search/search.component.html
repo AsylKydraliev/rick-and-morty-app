@@ -11,10 +11,10 @@
   </ng-autocomplete>
 
   <ng-template #itemTemplate let-item>
-    <a>{{ item.name }}</a>
+    <a [innerHTML]="item.name"></a>
   </ng-template>
 
   <ng-template #notFoundTemplate let-notFound>
-    <div>{{ notFound }}</div>
+    <div [innerHTML]="notFound"></div>
   </ng-template>
 </div>

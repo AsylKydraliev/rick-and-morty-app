@@ -1,15 +1,19 @@
 <ul class="pager">
   <li class="previous">
-    <a routerLink="/">&larr; Back</a>
+    <a (click)="back()">&larr; Back</a>
   </li>
 </ul>
 
-<div class="hero-unit">
+<app-loader *ngIf="(loading | async) else locationArea"></app-loader>
+
+<ng-template #locationArea>
+  <div class="hero-unit">
     <div class="info">
-      <h1>{{ location?.name }}</h1>
+      <h1>{{ locationData?.name }}</h1>
       <hr>
-      <p>Type: {{ location?.type }}</p>
-      <p>Dimension: {{ location?.dimension}}</p>
+      <p>Type: {{ locationData?.type }}</p>
+      <p>Dimension: {{ locationData?.dimension}}</p>
       <p>Created: {{ date }}</p>
     </div>
-</div>
+  </div>
+</ng-template>

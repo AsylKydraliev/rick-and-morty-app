@@ -15,7 +15,7 @@ export class LocationsComponent implements OnInit {
   locationsState: Observable<LocationsResponse | null>;
   locationsFetchError: Observable<string | null>;
   locationsFetchLoading: Observable<boolean>;
-  locations!: Location[] | undefined;
+  locations: Location[] | undefined = [];
   locationsSub!: Subscription;
   pageCount: number | undefined = 0;
 

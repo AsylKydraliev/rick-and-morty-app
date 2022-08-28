@@ -21,7 +21,6 @@
     "@ngrx/effects": "^13.2.0",
     "@ngrx/store": "^13.2.0",
     "angular-ng-autocomplete": "^2.0.12",
-    "jquery": "^3.6.0",
     "jw-angular-pagination": "^1.2.0",
     "ngrx-store-localstorage": "^13.0.0",
     "rxjs": "~7.4.0",

@@ -14,15 +14,30 @@
     ></app-search>
   </div>
   <hr>
+  <div class="sort">
+    <div>
+      <h3>Sort</h3>
+      <app-sort (sortCriterion)="onSort($event)"></app-sort>
+    </div>
+    <div>
+      <div>
+        <h3>Filter</h3>
+        <app-filter
+          (genderFilter)="onFilter($event)"
+          (statusFilter)="onFilter($event)"
+        ></app-filter>
+      </div>
+    </div>
+  </div>
   <div class="characters_content">
     <div class="hero-unit"
          *ngFor="let char of characters"
-         [routerLink]="['character', char.id]"
+         [routerLink]="['characters', char.id]"
     >
-      <img width="100%"
-           [src]="char.image"
-           [alt]="char.name"
-      >
+      <img width="100%" src="assets/images/no-image.png" *ngIf="!char.image else image" alt="NO IMAGE">
+      <ng-template #image>
+        <img width="100%" [src]="char.image" [alt]="char?.name">
+      </ng-template>
       <div class="info">
         <h3>{{ char.name }}</h3>
       </div>

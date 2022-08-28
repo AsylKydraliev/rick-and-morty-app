@@ -1,0 +1,8 @@
+<div class="dropdown">
+  <button class="btn dropBtn">{{ sortValue ? sortValue : 'Sort by' }}</button>
+  <div class="dropdown-content">
+    <button (click)="onSort($event)" value="Name (A-Z)">Name (A-Z)</button>
+    <button (click)="onSort($event)" value="Name (Z-A)">Name (Z-A)</button>
+    <button (click)="onSort($event)" value="Default">Default</button>
+  </div>
+</div>
