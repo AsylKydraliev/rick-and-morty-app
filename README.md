@@ -2,6 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4.
 
+## Clone project
+
+Enter in terminal `git clone https://github.com/AsylKydraliev/rick-and-morty-app.git`
+
+## installing dependencies
+
+Enter in terminal in the project directory `npm install`
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
