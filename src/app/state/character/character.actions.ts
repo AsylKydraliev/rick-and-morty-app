@@ -11,3 +11,4 @@ export const fetchCharacterSuccess = createAction(
 export const fetchCharacterFailure = createAction(
   '[character] Fetch Failure', props<{error: string}>()
 );
+

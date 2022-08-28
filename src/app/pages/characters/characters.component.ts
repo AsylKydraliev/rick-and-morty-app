@@ -46,7 +46,8 @@ export class CharactersComponent implements OnInit, OnDestroy {
     });
   }
 
-  onPagination(page: number) {
+  onPagination(page: number | string) {
+    this.store.dispatch(fetchCharactersRequest());
     this.charactersService.onPagination(page).subscribe(data => {
       this.characters = data.results;
       this.nextPage = parseInt(data.info.next.slice(-1));
@@ -60,7 +61,6 @@ export class CharactersComponent implements OnInit, OnDestroy {
   }
 
   onSort(event: string) {
-    console.log(event);
     const charactersCopy = [...this.characters];
     this.characters = charactersCopy.sort((a: Character, b: Character) => {
       if(event === 'Name (A-Z)') {

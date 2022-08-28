@@ -34,4 +34,17 @@ body {
     background-color: #555555;
     color: #eeeeee;
   }
+  .dropBtn {
+    background-color: #696868;
+    color: whitesmoke;
+  }
+  .dropdown-content {
+    button {
+      background-color: #807f7f;
+      color: whitesmoke;
+    }
+    button:hover {
+      color: #555555;
+    }
+  }
 }

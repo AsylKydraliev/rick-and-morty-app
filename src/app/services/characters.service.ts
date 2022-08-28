@@ -8,9 +8,9 @@ import { Character, CharacterResponse } from '../models/characters.model';
   providedIn: 'root'
 })
 export class CharactersService {
+  nextPage!: string;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getCharacters() {
     return this.http.get<CharacterResponse>(environment.charactersUrl).pipe(
@@ -36,7 +36,7 @@ export class CharactersService {
     );
   }
 
-  onPagination(page: number) {
+  onPagination(page?: number | string) {
     return this.http.get<CharacterResponse>(`${environment.charactersUrl}?page=${page}`).pipe(
       map(response => {
         return response;

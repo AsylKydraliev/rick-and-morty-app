@@ -8,9 +8,9 @@
 
 <ng-template #characterArea>
   <div class="hero-unit">
-    <img width="300" src="assets/images/no-image.png" *ngIf="!character else image" alt="NO IMAGE">
+    <img width="350" src="assets/images/no-image.png" *ngIf="!character else image" alt="NO IMAGE">
     <ng-template #image>
-      <img width="300" [src]="character?.image" [alt]="character?.name">
+      <img width="350" [src]="character?.image" [alt]="character?.name">
     </ng-template>
     <div class="info">
       <h1>{{ character?.name }}</h1>
