@@ -7,8 +7,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class SortComponent {
   @Output() sortCriterion = new EventEmitter<string>();
-  // @Output() sortDescending = new EventEmitter<string>();
-  // @Output() sortById = new EventEmitter<string>();
   sortValue = '';
 
   onSort(value: any) {
@@ -16,14 +14,4 @@ export class SortComponent {
     this.sortCriterion.emit(element.value);
     this.sortValue = element.value;
   }
-
-  // onSortDescending(value: any) {
-  //   const element = <HTMLButtonElement>value.target;
-  //   this.sortDescending.emit(element.value);
-  // }
-  //
-  // onSortByID(value: any) {
-  //   const element = <HTMLButtonElement>value.target;
-  //   this.sortById.emit(element.value);
-  // }
 }

@@ -6,7 +6,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
-  value = '';
   keyword = 'name';
 
   @Output() newItemEvent = new EventEmitter<string>();
@@ -14,8 +13,10 @@ export class SearchComponent {
   @Input() characters: any;
   @Input() locations: any;
 
-  onSearch(value: string) {
-    this.newItemEvent.emit(value);
+  onSearch(value: any) {
+    if (value.key === "Enter") {
+      this.newItemEvent.emit(value.target.value);
+    }
   }
 
   selectEvent(value: any) {

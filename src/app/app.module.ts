@@ -18,8 +18,6 @@ import { locationsReducer } from './state/locations/locations.reducer';
 import { LocationsEffects } from './state/locations/locations.effects';
 import { SearchComponent } from './components/search/search.component';
 import { FormsModule } from '@angular/forms';
-import { PaginationComponent } from './components/pagination/pagination.component';
-import { JwPaginationModule } from 'jw-angular-pagination';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { SwitchToggleComponent } from './components/switch-toggle/switch-toggle.component';
 import { CharactersEffects } from './state/characters/characters.effects';
@@ -29,6 +27,7 @@ import { LocationEffects } from './state/location/location.effects';
 import { locationReducer } from './state/location/location.reducer';
 import { SortComponent } from './components/sort/sort.component';
 import { FilterComponent } from './components/filter/filter.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -41,7 +40,6 @@ import { FilterComponent } from './components/filter/filter.component';
     LocationsComponent,
     LocationViewComponent,
     SearchComponent,
-    PaginationComponent,
     SwitchToggleComponent,
     SortComponent,
     FilterComponent,
@@ -51,8 +49,8 @@ import { FilterComponent } from './components/filter/filter.component';
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
-      JwPaginationModule,
       AutocompleteLibModule,
+      NgxPaginationModule,
       StoreModule.forRoot({
         characters: charactersReducer,
         character: characterReducer,

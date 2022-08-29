@@ -15,7 +15,9 @@
   </div>
   <hr>
   <div class="locations_content">
-    <div class="hero-unit" *ngFor="let location of locations">
+    <div class="hero-unit" *ngFor="let location of locations |
+    paginate: { itemsPerPage: 20, currentPage: page, totalItems: totalItems }
+    ">
       <div class="info">
         <h2>
           <a [routerLink]="['/', 'location', location.id]">
@@ -27,8 +29,12 @@
       </div>
     </div>
   </div>
-  <div class="pagination">
-    <app-pagination (newPageEvent)="onPagination($event)" [pages]="pageCount"></app-pagination>
+  <div class="pagePag" *ngIf="locations.length >= 20">
+    <pagination-controls
+      (pageChange)="page = $event"
+      (click)="onPagination()"
+      [responsive]="true"
+    ></pagination-controls>
   </div>
 </ng-template>
 

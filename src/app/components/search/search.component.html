@@ -4,7 +4,7 @@
     [searchKeyword]="keyword"
     placeholder="Search by name"
     (selected)='selectEvent($event)'
-    (inputChanged)='onSearch($event)'
+    (keydown)='onSearch($event)'
     historyIdentifier="characters || locations"
     [itemTemplate]="itemTemplate"
     [notFoundTemplate]="notFoundTemplate">

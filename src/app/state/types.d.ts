@@ -5,6 +5,7 @@ export type CharactersState = {
   characters: CharacterResponse | null,
   fetchLoading: boolean;
   fetchError: null | string;
+  searchError: null | string;
 };
 
 export type CharacterState = {

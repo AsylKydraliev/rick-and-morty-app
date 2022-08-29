@@ -15,9 +15,10 @@ export class LocationsComponent implements OnInit {
   locationsState: Observable<LocationsResponse | null>;
   locationsFetchError: Observable<string | null>;
   locationsFetchLoading: Observable<boolean>;
-  locations: Location[] | undefined = [];
+  locations: Location[] | [] = [];
   locationsSub!: Subscription;
-  pageCount: number | undefined = 0;
+  page: number = 1;
+  totalItems: number | undefined = 0;
 
   constructor(private store: Store<AppState>, private locationService: LocationsService) {
     this.locationsState = store.select(state => state.locations.locations);
@@ -27,9 +28,14 @@ export class LocationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(fetchLocationsRequest());
+    this.getLocations();
+  }
+
+  getLocations() {
     this.locationsSub = this.locationsState.subscribe(location => {
-      this.locations = location?.results;
-    })
+      this.locations = location?.results!;
+      this.totalItems = location?.info.count!;
+    });
   }
 
   searchCharacters(value: string) {
@@ -38,8 +44,8 @@ export class LocationsComponent implements OnInit {
     });
   }
 
-  onPagination(page: number) {
-    this.locationService.onPagination(page).subscribe(data => {
+  onPagination() {
+    this.locationService.onPagination(this.page).subscribe(data => {
       this.locations = data.results;
     });
   }

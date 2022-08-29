@@ -1,4 +1,6 @@
-<div class="alert alert-error" *ngIf="charactersFetchError | async">
+<div
+  class="alert alert-error"
+  *ngIf="(charactersFetchError | async)">
   {{ charactersFetchError | async }}
 </div>
 
@@ -28,10 +30,15 @@
         ></app-filter>
       </div>
     </div>
+    <div>
+      <h3>Reset</h3>
+      <button (click)="dispatchAction()" class="btn dropBtn">filter/sort</button>
+    </div>
   </div>
   <div class="characters_content">
     <div class="hero-unit"
-         *ngFor="let char of characters"
+         *ngFor="let char of characters |
+         paginate: { itemsPerPage: 20, currentPage: page, totalItems: totalItems }"
          [routerLink]="['characters', char.id]"
     >
       <img width="100%" src="assets/images/no-image.png" *ngIf="!char.image else image" alt="NO IMAGE">
@@ -43,13 +50,12 @@
       </div>
     </div>
   </div>
-  <div class="pagination">
-    <app-pagination
-      (newPageEvent)="onPagination($event)"
-      [pages]="pageCount"
-      [nextPage]="nextPage"
-      [prevPage]="prevPage"
-    ></app-pagination>
+  <div *ngIf="characters.length >= 20" class="pagePag">
+    <pagination-controls
+      (pageChange)="page = $event"
+      (click)="onPagination()"
+      [responsive]="true"
+    ></pagination-controls>
   </div>
 </ng-template>
 

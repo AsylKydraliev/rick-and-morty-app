@@ -31,9 +31,9 @@ export class LocationViewComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.store.dispatch(fetchLocationRequest({id: params['id']}));
     })
-    this.location.subscribe((loc: any) => {
+    this.location.subscribe((loc: Location | null) => {
       this.locationData = loc;
-      this.date = new Date(loc.created).toLocaleDateString();
+      this.date = new Date(loc?.created!).toLocaleDateString();
     });
   }
 

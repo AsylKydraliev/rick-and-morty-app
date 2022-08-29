@@ -32,7 +32,7 @@ export class CharactersService {
     return this.http.get<CharacterResponse>(`${environment.charactersUrl}/?name=${query}`).pipe(
       map(response => {
         return response;
-      })
+      }),
     );
   }
 
@@ -42,6 +42,38 @@ export class CharactersService {
         return response;
       })
     );
+  }
+
+  onPaginationOfSearchItems(page: number | string, name: string) {
+    return this.http.get<CharacterResponse>(`${environment.charactersUrl}?page=${page}&name=${name}`)
+      .pipe(map(response => {
+        return response;
+      })
+    );
+  }
+
+  onPaginationOfFilterItems(page: number | string, value: string) {
+    let criterion = '';
+    switch (value) {
+      case 'alive':
+      case 'dead':
+      case 'unknown':
+        criterion = `status=${value}`;
+        console.log(criterion);
+        break;
+      case 'female':
+      case 'male':
+      case 'genderless':
+      case 'unknown':
+        criterion = `gender=${value}`;
+        break;
+    }
+
+    return this.http.get<CharacterResponse>(`${environment.charactersUrl}?page=${page}&${criterion}`)
+      .pipe(map(response => {
+          return response;
+        })
+      );
   }
 
   onFilter(filterCriterion: string) {

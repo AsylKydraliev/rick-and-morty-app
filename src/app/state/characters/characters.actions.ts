@@ -10,3 +10,14 @@ export const fetchCharactersSuccess = createAction(
 export const fetchCharactersFailure = createAction(
   '[Characters] Fetch Failure', props<{error: string}>()
 );
+
+export const searchCharactersRequest = createAction(
+  '[Characters] Search Request',
+  props<{query: string}>()
+);
+export const searchCharactersSuccess = createAction(
+  '[Characters] Search Success', props<{characters: CharacterResponse}>()
+);
+export const searchCharactersFailure = createAction(
+  '[Characters] Search Failure', props<{error: string}>()
+);

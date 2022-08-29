@@ -4,7 +4,7 @@ import { AppState } from '../../state/types';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { CharactersService } from '../../services/characters.service';
-import { fetchCharactersRequest } from '../../state/characters/characters.actions';
+import { fetchCharactersRequest, searchCharactersRequest } from '../../state/characters/characters.actions';
 
 @Component({
   selector: 'app-character',
@@ -13,18 +13,26 @@ import { fetchCharactersRequest } from '../../state/characters/characters.action
 })
 export class CharactersComponent implements OnInit, OnDestroy {
   charactersState: Observable<CharacterResponse | null>;
+  searchCharactersState: Observable<CharacterResponse | null>;
   charactersFetchError: Observable<string | null>;
   charactersFetchLoading: Observable<boolean>;
   characters: Character[] | any = [];
   charactersSub!: Subscription;
-  pageCount: number | undefined = 0;
-  nextPage!: any;
-  prevPage!: number;
+  totalItems: number | undefined = 0;
+  page: number = 1;
+  error = '';
+  nextPage = '';
+  searchName = '';
+  filterValue = '';
 
-  constructor(private store: Store<AppState>, private charactersService: CharactersService) {
+  constructor(
+    private store: Store<AppState>,
+    private charactersService: CharactersService
+  ) {
     this.charactersState = store.select(state => state.characters.characters);
     this.charactersFetchError = store.select(state => state.characters.fetchError);
     this.charactersFetchLoading = store.select(state => state.characters.fetchLoading);
+    this.searchCharactersState = store.select(state => state.characters.characters);
   }
 
   ngOnInit(): void {
@@ -32,54 +40,30 @@ export class CharactersComponent implements OnInit, OnDestroy {
     this.getCharactersData();
   }
 
+  dispatchAction() {
+    this.store.dispatch(fetchCharactersRequest());
+  }
+
   getCharactersData() {
     this.charactersSub = this.charactersState.subscribe(char => {
       this.characters = char?.results;
-      this.pageCount = char?.info.pages;
-      this.nextPage = char?.info.next;
+      this.totalItems = char?.info.count;
     });
   }
 
   searchCharacters(value: string) {
-    this.charactersService.searchCharacters(value).subscribe(data => {
-      this.characters = data.results;
-    });
-  }
+    this.searchName = value;
+    this.store.dispatch(searchCharactersRequest({query: value}));
 
-  onPagination(page: number | string) {
-    this.store.dispatch(fetchCharactersRequest());
-    this.charactersService.onPagination(page).subscribe(data => {
-      this.characters = data.results;
-      this.nextPage = parseInt(data.info.next.slice(-1));
-
-      if(data.info.prev) {
-        this.prevPage = parseInt(data.info.prev.slice(-1));
-      }
-
-      return;
-    });
-  }
-
-  onSort(event: string) {
-    const charactersCopy = [...this.characters];
-    this.characters = charactersCopy.sort((a: Character, b: Character) => {
-      if(event === 'Name (A-Z)') {
-        if(a.name < b.name) return -1;
-        if(a.name > b.name) return 1;
-      }
-      if(event === 'Name (Z-A)') {
-        if(a.name > b.name) return -1;
-        if(a.name < b.name) return 1;
-      }
-      if(event === 'Default') {
-        return a.id - b.id;
-      }
-
-      return 0;
-    });
+    this.searchCharactersState.subscribe(char => {
+      this.characters = char?.results;
+      this.nextPage = char?.info.next!;
+      this.totalItems = char?.info.count;
+    })
   }
 
   onFilter(value: string) {
+    this.filterValue = value;
     let criterion = '';
 
     switch (value) {
@@ -94,13 +78,52 @@ export class CharactersComponent implements OnInit, OnDestroy {
       case 'Unknown':
         criterion = `gender=${value}`;
         break;
-      default:
-        this.store.dispatch(fetchCharactersRequest());
     }
 
     this.charactersService.onFilter(criterion.toLowerCase()).subscribe(data => {
       this.characters = data.results;
+      this.totalItems = data.info.count;
     })
+  }
+
+  onSort(event: string) {
+    const charactersCopy = [...this.characters];
+    this.characters = charactersCopy.sort((a: Character, b: Character) => {
+      if(event === 'Name (A-Z)') {
+        if(a.name < b.name) return -1;
+        if(a.name > b.name) return 1;
+      }
+      if(event === 'Name (Z-A)') {
+        if(a.name > b.name) return -1;
+        if(a.name < b.name) return 1;
+      }
+
+      return 0;
+    });
+  }
+
+  onPagination() {
+    if (this.nextPage !== '') {
+      this.charactersService.onPaginationOfSearchItems(this.page, this.searchName)
+        .subscribe(data => {
+          this.characters = data.results;
+          this.totalItems = data?.info.count;
+        });
+      return;
+    } else if (this.filterValue !== '') {
+      this.charactersService.onPaginationOfFilterItems(this.page, this.filterValue.toLowerCase())
+        .subscribe(data => {
+          this.characters = data.results;
+          this.totalItems = data?.info.count;
+        });
+      return;
+    } else {
+      this.charactersService.onPagination(this.page).subscribe(data => {
+        this.characters = data.results;
+        this.totalItems = data?.info.count;
+      });
+      return;
+    }
   }
 
   ngOnDestroy() {
